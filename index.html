@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Lato:wght@400;700&family=Playfair+Display:wght@700&family=Open+Sans:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Abel&family=Abril+Fatface&family=Alegreya&family=Anonymous+Pro&family=Arbutus+Slab&family=Archivo&family=Assistant:wght@400;700&family=Baloo+2&family=Barlow:wght@400;700&family=Bitter:wght@400;700&family=Blinker:wght@400;700&family=Cabin:wght@400;700&family=Catamaran:wght@400;700&family=Comfortaa:wght@400;700&family=Crimson+Text&family=DM+Sans:wght@400;700&family=Dancing+Script&family=EB+Garamond&family=Exo+2:wght@400;700&family=Fira+Sans:wght@400;700&family=Josefin+Sans:wght@400;700&family=Jost:wght@400;700&family=Kanit:wght@400;700&family=Lobster&family=Lora:wght@400;700&family=Manrope:wght@400;700&family=Montserrat:wght@400;700&family=Mukta:wght@400;700&family=Nunito+Sans:wght@400;700&family=Overpass:wght@400;700&family=PT+Serif:wght@400;700&family=Poppins:wght@400;700&family=Quicksand:wght@400;700&family=Raleway:wght@400;700&family=Roboto:wght@400;700&family=Rubik:wght@400;700&family=Saira:wght@400;700&family=Shadows+Into+Light&family=Source+Sans+Pro:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         /* Basic Reset & Body Styling */
@@ -69,7 +69,7 @@
         }
 
         nav ul li a:hover {
-            color: #f72585 !important; /* Brighter on hover, !important to override JS */
+            color: #f72585 !important; 
         }
 
         /* Main Content Area */
@@ -265,22 +265,58 @@
         const totalImages = 552; 
         const imageBaseUrl = 'https://pub-ec767d62316a441eb6c2ef8cadabc59c.r2.dev/9x16Flamingo_'; 
 
-        const fixedImageNumber = 25; // This is the number for your FIXED background image
-        const fixedImageUrl = `${imageBaseUrl}${String(fixedImageNumber).padStart(3, '0')}.jpg`;
+        const fixedImageNumber = 25; 
+        const fixedImageUrl = `<span class="math-inline">\{imageBaseUrl\}</span>{String(fixedImageNumber).padStart(3, '0')}.jpg`;
         
         // Fixed Image for the Frame (always image 26)
-        const framedPortraitImageNumber = 26; // Set to image 26 for the framed portrait
-        const framedPortraitImageUrl = `${imageBaseUrl}${String(framedPortraitImageNumber).padStart(3, '0')}.jpg`;
+        const framedPortraitImageNumber = 26; 
+        const framedPortraitImageUrl = `<span class="math-inline">\{imageBaseUrl\}</span>{String(framedPortraitImageNumber).padStart(3, '0')}.jpg`;
 
         let isRandomMode = true; 
 
-        // --- Font and Color Randomization Arrays ---
+        // --- Font and Color Randomization Arrays (40 Fonts) ---
         const fontFamilies = [
-            "'Pacifico', cursive",
-            "'Lato', sans-serif",
-            "'Playfair Display', serif",
-            "'Open Sans', sans-serif",
-            "'Bebas Neue', cursive"
+            "'ABeeZee', sans-serif",
+            "'Abel', sans-serif",
+            "'Abril Fatface', display",
+            "'Alegreya', serif",
+            "'Anonymous Pro', monospace",
+            "'Arbutus Slab', serif",
+            "'Archivo', sans-serif",
+            "'Assistant', sans-serif",
+            "'Baloo 2', display",
+            "'Barlow', sans-serif",
+            "'Bitter', serif",
+            "'Blinker', sans-serif",
+            "'Cabin', sans-serif",
+            "'Catamaran', sans-serif",
+            "'Comfortaa', display",
+            "'Crimson Text', serif",
+            "'DM Sans', sans-serif",
+            "'Dancing Script', cursive",
+            "'EB Garamond', serif",
+            "'Exo 2', sans-serif",
+            "'Fira Sans', sans-serif",
+            "'Josefin Sans', sans-serif",
+            "'Jost', sans-serif",
+            "'Kanit', sans-serif",
+            "'Lobster', display",
+            "'Lora', serif",
+            "'Manrope', sans-serif",
+            "'Montserrat', sans-serif",
+            "'Mukta', sans-serif",
+            "'Nunito Sans', sans-serif",
+            "'Overpass', sans-serif",
+            "'PT Serif', serif",
+            "'Poppins', sans-serif",
+            "'Quicksand', sans-serif",
+            "'Raleway', sans-serif",
+            "'Roboto', sans-serif",
+            "'Rubik', sans-serif",
+            "'Saira', sans-serif",
+            "'Shadows Into Light', cursive",
+            "'Source Sans Pro', sans-serif",
+            "'Space Grotesk', sans-serif"
         ];
 
         // Curated colors that generally provide some contrast, even with shadow
@@ -293,7 +329,7 @@
             '#000000'    // Black
         ];
 
-        // --- Fixed Font and Color Styles ---
+        // --- Fixed Font and Color Styles for Headings/Nav ---
         const fixedHeadingFont = "'Pacifico', cursive";
         const fixedHeadingColor = '#d9418c'; // Festival pink
         const fixedNavFont = "'Lato', sans-serif";
@@ -310,14 +346,31 @@
         function getRandomImageUrl() {
             const randomIndex = Math.floor(Math.random() * totalImages) + 1;
             const paddedIndex = String(randomIndex).padStart(3, '0');
-            return `${imageBaseUrl}${paddedIndex}.jpg`;
+            return `<span class="math-inline">\{imageBaseUrl\}</span>{paddedIndex}.jpg`;
         }
+
+        // Helper function to get an image URL by its number
+        // function getImageUrlByNumber(imgNumber) { // Not strictly needed in this version
+        //     const paddedIndex = String(imgNumber).padStart(3, '0');
+        //     return `<span class="math-inline">\{imageBaseUrl\}</span>{paddedIndex}.jpg`;
+        // }
+
+        // Helper function to get the *next* image in sequence, handling wrap-around
+        // function getNextSequentialImageUrl(currentImageNumber) { // Not strictly needed in this version
+        //     let nextNumber = currentImageNumber + 1;
+        //     if (nextNumber > totalImages) {
+        //         nextNumber = 1; // Wrap around to the first image
+        //     }
+        //     return getImageUrlByNumber(nextNumber);
+        // }
+
 
         // Function to update the background AND framed image based on mode
         function updateBackground() { 
             const toggleButton = document.getElementById('toggleImageButton');
             const framedImageElement = document.getElementById('framedImage'); 
-            
+            const bodyElement = document.body; 
+
             let currentBackgroundImageUrl; 
             let currentFramedImageUrl; 
 
@@ -345,7 +398,7 @@
             }
             
             // Apply the chosen URLs
-            document.body.style.backgroundImage = `url('${currentBackgroundImageUrl}')`;
+            bodyElement.style.backgroundImage = `url('${currentBackgroundImageUrl}')`; 
             if (framedImageElement) { // Defensive check
                 framedImageElement.src = currentFramedImageUrl; 
             }
@@ -391,39 +444,3 @@
                 }
                 if (navLinks) {
                     navLinks.forEach(link => {
-                        link.style.color = fixedNavColor;
-                    });
-                }
-                if (mainHeading) {
-                    mainHeading.style.fontFamily = fixedH2Font;
-                    mainHeading.style.color = fixedH2Color;
-                }
-                if (highlightHeadings) {
-                    highlightHeadings.forEach(h3 => {
-                        h3.style.fontFamily = fixedH3Font;
-                        h3.style.color = fixedH3Color;
-                    });
-                }
-            }
-        }
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initial load of background and framed image, AND initial heading styles
-            updateBackground(); 
-
-            // Button Click Listener
-            const toggleButton = document.getElementById('toggleImageButton');
-            if (toggleButton) { 
-                toggleButton.addEventListener('click', () => {
-                    isRandomMode = !isRandomMode; 
-                    updateBackground(); // This will now also call applyHeadingStyles
-                });
-            } else {
-                console.error("Toggle button not found!");
-            }
-        });
-    </script>
-
-</body>
-</html>
