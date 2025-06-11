@@ -42,6 +42,7 @@
         }
 
         header h1 {
+            /* Font and color randomized/set by JS */
             font-size: 3.5em;
             margin: 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
@@ -60,6 +61,7 @@
 
         nav ul li a {
             text-decoration: none;
+            /* Color randomized/set by JS */
             font-weight: bold;
             font-size: 1.1em;
             transition: color 0.3s ease; 
@@ -67,7 +69,7 @@
         }
 
         nav ul li a:hover {
-            color: #f72585 !important; 
+            color: #f72585 !important; /* Brighter on hover, !important to override JS */
         }
 
         /* Main Content Area */
@@ -86,6 +88,7 @@
         }
 
         main h2 {
+            /* Font and color randomized/set by JS */
             font-size: 2.2em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
@@ -117,6 +120,7 @@
         }
 
         .highlight-item h3 {
+            /* Font and color randomized/set by JS */
             margin-top: 0;
             font-size: 1.5em;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
@@ -183,7 +187,7 @@
 
         /* Style for the Framed Image */
         #framedImage {
-            display: block; /* Always displayed now */
+            display: block; 
             margin: 20px auto 30px auto; 
             width: 320px; 
             height: 180px; 
@@ -264,12 +268,13 @@
         const fixedImageNumber = 25; // This is the number for your FIXED background image
         const fixedImageUrl = `${imageBaseUrl}${String(fixedImageNumber).padStart(3, '0')}.jpg`;
         
-        // --- Fixed Image for the Frame (always image 26) ---
+        // Fixed Image for the Frame (always image 26)
         const framedPortraitImageNumber = 26; // Set to image 26 for the framed portrait
         const framedPortraitImageUrl = `${imageBaseUrl}${String(framedPortraitImageNumber).padStart(3, '0')}.jpg`;
 
         let isRandomMode = true; 
 
+        // --- Font and Color Randomization Arrays ---
         const fontFamilies = [
             "'Pacifico', cursive",
             "'Lato', sans-serif",
@@ -278,14 +283,25 @@
             "'Bebas Neue', cursive"
         ];
 
+        // Curated colors that generally provide some contrast, even with shadow
         const textColors = [
-            '#d9418c',   
-            '#f72585',   
-            '#43aa8b',   
-            '#f4a261',   
-            '#ffffff',   
-            '#000000'    
+            '#d9418c',   // Festival pink
+            '#f72585',   // Brighter festival pink
+            '#43aa8b',   // Medium green
+            '#f4a261',   // Orange/peach
+            '#ffffff',   // White
+            '#000000'    // Black
         ];
+
+        // --- Fixed Font and Color Styles ---
+        const fixedHeadingFont = "'Pacifico', cursive";
+        const fixedHeadingColor = '#d9418c'; // Festival pink
+        const fixedNavFont = "'Lato', sans-serif";
+        const fixedNavColor = '#7a1d52'; // Darker festival pink
+        const fixedH2Font = "'Lato', sans-serif";
+        const fixedH2Color = '#7a1d52'; 
+        const fixedH3Font = "'Lato', sans-serif";
+        const fixedH3Color = '#7a1d52';
 
         function getRandomItem(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
@@ -297,13 +313,13 @@
             return `${imageBaseUrl}${paddedIndex}.jpg`;
         }
 
-        // Function to update the background and framed image
-        function updateBackground() { // Function name reverted to updateBackground
+        // Function to update the background AND framed image based on mode
+        function updateBackground() { 
             const toggleButton = document.getElementById('toggleImageButton');
-            const framedImageElement = document.getElementById('framedImage'); // Get reference to the image element
+            const framedImageElement = document.getElementById('framedImage'); 
             
             let currentBackgroundImageUrl; 
-            let currentFramedImageUrl; // New variable for the framed image's URL
+            let currentFramedImageUrl; 
 
             if (isRandomMode) {
                 // Background is random
@@ -333,48 +349,75 @@
             if (framedImageElement) { // Defensive check
                 framedImageElement.src = currentFramedImageUrl; 
             }
+
+            // --- Apply Heading Styles Based on Mode ---
+            applyHeadingStyles(isRandomMode);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initial background and framed image load
-            updateBackground(); 
-
-            // Randomize Fonts and Colors 
+        // New function to apply heading styles
+        function applyHeadingStyles(isRandomMode) {
             const mainTitle = document.querySelector('header h1');
             const navLinks = document.querySelectorAll('nav ul li a');
             const mainHeading = document.querySelector('main h2');
             const highlightHeadings = document.querySelectorAll('.highlight-item h3');
 
-            if (mainTitle) {
-                mainTitle.style.fontFamily = getRandomItem(fontFamilies);
-                mainTitle.style.color = getRandomItem(textColors);
+            if (isRandomMode) {
+                // Apply random styles
+                if (mainTitle) {
+                    mainTitle.style.fontFamily = getRandomItem(fontFamilies);
+                    mainTitle.style.color = getRandomItem(textColors);
+                }
+                if (navLinks) {
+                    const randomNavLinkColor = getRandomItem(textColors);
+                    navLinks.forEach(link => {
+                        link.style.color = randomNavLinkColor;
+                    });
+                }
+                if (mainHeading) {
+                    mainHeading.style.fontFamily = getRandomItem(fontFamilies);
+                    mainHeading.style.color = getRandomItem(textColors);
+                }
+                if (highlightHeadings) {
+                    highlightHeadings.forEach(h3 => {
+                        h3.style.fontFamily = getRandomItem(fontFamilies);
+                        h3.style.color = getRandomItem(textColors);
+                    });
+                }
+            } else {
+                // Apply fixed, legible styles
+                if (mainTitle) {
+                    mainTitle.style.fontFamily = fixedHeadingFont;
+                    mainTitle.style.color = fixedHeadingColor;
+                }
+                if (navLinks) {
+                    navLinks.forEach(link => {
+                        link.style.color = fixedNavColor;
+                    });
+                }
+                if (mainHeading) {
+                    mainHeading.style.fontFamily = fixedH2Font;
+                    mainHeading.style.color = fixedH2Color;
+                }
+                if (highlightHeadings) {
+                    highlightHeadings.forEach(h3 => {
+                        h3.style.fontFamily = fixedH3Font;
+                        h3.style.color = fixedH3Color;
+                    });
+                }
             }
+        }
 
-            if (navLinks) {
-                const randomNavLinkColor = getRandomItem(textColors);
-                navLinks.forEach(link => {
-                    link.style.color = randomNavLinkColor;
-                });
-            }
 
-            if (mainHeading) {
-                mainHeading.style.fontFamily = getRandomItem(fontFamilies);
-                mainHeading.style.color = getRandomItem(textColors);
-            }
-
-            if (highlightHeadings) {
-                highlightHeadings.forEach(h3 => {
-                    h3.style.fontFamily = getRandomItem(fontFamilies);
-                    h3.style.color = getRandomItem(textColors);
-                });
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial load of background and framed image, AND initial heading styles
+            updateBackground(); 
 
             // Button Click Listener
             const toggleButton = document.getElementById('toggleImageButton');
             if (toggleButton) { 
                 toggleButton.addEventListener('click', () => {
                     isRandomMode = !isRandomMode; 
-                    updateBackground(); 
+                    updateBackground(); // This will now also call applyHeadingStyles
                 });
             } else {
                 console.error("Toggle button not found!");
